@@ -24,7 +24,7 @@ app = FastAPI(
 )
 
 @app.get("/")
-def home():
+def home() -> dict[str, str]:
     return {
         "title" : "Iris-API",
         "description" : DESCRIPTION,
