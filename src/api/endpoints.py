@@ -1,6 +1,9 @@
 from typing import Literal
 from duckdb import connect
 from fastapi import FastAPI, HTTPException
+from pickle import load
+from sklearn.pipeline import Pipeline
+from polars import from_dicts
 
 DESCRIPTION = """
 ## A Data Science API that provides:
@@ -12,6 +15,8 @@ DESCRIPTION = """
 - ### A Iris Prediction Model (for both embeddings and normal)
 
 """
+with open("data/models/model.pkl", "rb") as file:
+    model : Pipeline = load(file)
 
 database = connect("./data/database.db", read_only=True)
 
@@ -36,7 +41,7 @@ def home() -> dict[str, str]:
 def get_iris_data(
     split_type : Literal["train", "test"],
     data_part : Literal["input", "output"]
-    ) -> list[dict[str, float]]:
+    ) -> list[dict]:
 
     data_name = f"{split_type}_{data_part}"
     try:
@@ -50,3 +55,11 @@ def get_whole_iris(data_type : Literal["raw", "cleaned"]):
         return database.sql(f"from {data_type}_iris").pl().to_dicts()
     except:
         raise HTTPException(400, "invalid data_type")
+
+@app.post("/model/predict/from_raw")
+def raw_predict_iris(data : list[dict]) -> list[int]:
+    try:
+        return list(model.predict(from_dicts(data)))
+    except:
+        raise HTTPException(400, f"invalid data")
+

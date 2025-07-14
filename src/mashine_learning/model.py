@@ -18,5 +18,8 @@ pipeline = make_pipeline(
 
 pipeline.fit(train_input, train_output)
 
+
+print(pipeline.predict(train_input))
+
 with open("data/models/model.pkl", "wb") as file:
     dump(pipeline, file, HIGHEST_PROTOCOL)
