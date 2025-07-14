@@ -17,7 +17,7 @@ docker build -t ai-api .
 
 - ### Run Image
 ```powershell
-docker run -p 8000:8000 -d ai-api
+docker run -d -p 8000:8000 --name iris_api ai-api 
 ```
 - ### Replace ai-api with custom image name (optional)
 
