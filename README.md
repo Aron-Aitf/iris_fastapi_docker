@@ -12,7 +12,7 @@
 
 - ### Build Image
 ```powershell
-docker build -t ai-api
+docker build -t ai-api .
 ```
 
 - ### Run Image
