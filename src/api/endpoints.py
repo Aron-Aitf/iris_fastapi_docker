@@ -1,3 +1,4 @@
+from typing import Literal
 from duckdb import connect
 from fastapi import FastAPI, HTTPException
 
@@ -31,13 +32,21 @@ def home():
         }
 
 
-@app.get("/get_data/split/{data_name}")
+@app.get("/get_data/split/{split_type}/{data_part}")
 def get_iris_data(
-    data_name : str
+    split_type : Literal["train", "test"],
+    data_part : Literal["input", "output"]
     ) -> list[dict[str, float]]:
 
-    data_name = data_name.replace(" ", "_").lower()
+    data_name = f"{split_type}_{data_part}"
     try:
         return database.sql(f"from {data_name}").pl().to_dicts()
     except:
-        raise HTTPException(400, "invalid data name")
+        raise HTTPException(400, f"invalid parameters {split_type}, {data_part}")
+
+@app.get("/get_data/whole/{data_type}")
+def get_whole_iris(data_type : Literal["raw", "cleaned"]):
+    try:
+        return database.sql(f"from {data_type}_iris").pl().to_dicts()
+    except:
+        raise HTTPException(400, "invalid data_type")
