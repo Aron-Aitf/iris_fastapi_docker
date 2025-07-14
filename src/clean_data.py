@@ -7,13 +7,13 @@ species_map = {
 }
 
 (
-    scan_csv("./src/data/iris.csv")
+    scan_csv("./data/iris.csv")
     .with_columns
     (
         col("species")
         .replace(species_map)
         .alias("species")
     )
-    .sink_csv("./src/data/cleaned_iris.csv")
+    .sink_csv("./data/cleaned_iris.csv")
 )
 
