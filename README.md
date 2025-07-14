@@ -2,11 +2,9 @@
 
 ## A Data Science API that provides:
 
-- ### The Iris Dataset (clean and raw)
+- ### The Iris Dataset (cleaned and raw)
 
-- ### Low and High dimensional embeddings for the iris dataset
-
-- ### A Iris Prediction Model (for both embeddings and normal)
+- ### A Iris Prediction Model
 
 ## Commands
 
