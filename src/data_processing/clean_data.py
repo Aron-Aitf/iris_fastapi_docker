@@ -12,8 +12,10 @@ species_map = {
     (
         col("species")
         .replace(species_map)
+        .cast(int)
         .alias("species")
     )
     .sink_csv("./data/cleaned_iris.csv")
 )
+
 
