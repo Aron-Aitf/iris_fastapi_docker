@@ -13,6 +13,7 @@ pipeline = make_pipeline(
     RandomForestClassifier(n_estimators=500)
 )
 
+pipeline.set_output(transform="polars") # type: ignore
 pipeline.fit(train_input, train_output)
 
 

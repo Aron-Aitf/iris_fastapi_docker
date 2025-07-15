@@ -1,6 +1,6 @@
 from typing import Literal
 from fastapi import FastAPI, HTTPException
-from polars import read_csv, from_dicts
+from polars import read_csv, from_dicts, from_numpy
 from pickle import load
 from sklearn.pipeline import Pipeline
 
@@ -9,7 +9,9 @@ DESCRIPTION = """
 
 - ### The Iris Dataset (cleaned and raw)
 
-- ### A Iris Prediction Model
+- ### Iris Data Scaler
+
+- ### A Iris Prediction Model (from scaled and raw)
 
 """
 
@@ -59,3 +61,17 @@ def raw_predict_iris(data : list[dict]) -> list[int]:
     except:
         raise HTTPException(400, "invalid data")
 
+
+@app.post("/model/transform/scale")
+def scale_data(data : list[dict]) -> list[dict[str, float | int]]:
+    try:
+        return model[0].transform(from_dicts(data)).to_dicts()
+    except:
+        raise HTTPException(400, "invalid data")
+
+@app.post("/model/predict/from_scaled")
+def predict_scaled(data : list[dict]) -> list[int]:
+    try:
+        return model[1].predict(from_dicts(data))
+    except:
+        raise HTTPException(400, "invalid data")
