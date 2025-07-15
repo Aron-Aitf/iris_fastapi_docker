@@ -1,6 +1,6 @@
 from typing import Literal
 from fastapi import FastAPI, HTTPException
-from polars import read_csv, from_dicts, from_numpy
+from polars import read_csv, from_dicts
 from pickle import load
 from sklearn.pipeline import Pipeline
 

@@ -1,5 +1,4 @@
 from polars import read_csv, DataFrame
-
 from sklearn.model_selection import train_test_split
 
 data = read_csv("./data/cleaned_iris.csv")
