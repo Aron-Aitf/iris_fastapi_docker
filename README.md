@@ -1,25 +1,37 @@
-## A Data Science API that provides:
+# A Data Science API
 
-- ### The Iris Dataset (cleaned and raw)
+## This was a old project to learn APIs and data science
 
-- ### Iris Data Scaler
+## This was repurposed as a project to learn networking and API deployment
 
-- ### A Iris Prediction Model (from scaled and raw)
+## More information cam be found in the swagger UI docs at <http://localhost:80/docs> when the API is running on the computer
 
+## Running
 
-## Commands
+### To run, The only requirement is Docker Compose  
 
-- ### Build Image
-```powershell
-docker build -t ai-api .
+#### Run
+
+```bash
+docker compose up --build -d
 ```
 
-- ### Run Image
-```powershell
-docker run -d -p 8000:8000 --name iris_api ai-api 
+#### Show Output
+
+```bash
+docker compose logs -f
 ```
 
-- ### Run Normally
-```powershell
-fastapi run src\api\endpoints.py
+#### Stop
+
+```bash
+docker compose down --volumes
 ```
+
+## How it works
+
+### This project uses Docker Compose to manage containers and Nginx as a reverse proxy
+
+#### Nginx is used as a reverse proxy to Fastapi while handling rate limiting and caching
+
+#### Docker and Docker compose are used to manage both the API and Nginx in separate containers while restarting them if they crash

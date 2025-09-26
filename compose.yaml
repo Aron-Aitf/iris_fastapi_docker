@@ -1,0 +1,17 @@
+services:
+    api:
+        build: ./api
+        container_name: "api"
+        restart: unless-stopped
+        expose:
+            - "8000"
+    nginx:
+        build: ./proxy
+        container_name: nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./proxy/proxy.conf:/etc/nginx/conf.d/proxy.conf
+        depends_on:
+            - api
