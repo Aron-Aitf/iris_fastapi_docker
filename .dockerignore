@@ -2,5 +2,6 @@
 .git/
 models/
 split_iris/
+cleaned_iris.csv
 .vscode/
 __pycache__/
